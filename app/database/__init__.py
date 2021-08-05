@@ -9,7 +9,7 @@ def get_db():
     db = getattr(g, "_database", None)
     if not db:
         db = g._database = sqlite3.connect(DATABASE)
-        return db
+    return db
 
 
 def output_formatter(results: tuple):
@@ -22,6 +22,7 @@ def output_formatter(results: tuple):
         result_dict["hobbies"] = result[3]
         result_dict["active"] = result[4]
         out.append(result_dict)
+    return out
 
 
 def scan():
@@ -49,8 +50,7 @@ def insert(first_name, last_name, hobbies=None, active=1):
 
 
 def select(user_id):
-    cursor = get_db().execute("SELECT * FROM user WHERE id=?",
-                              (user_id, ))
+    cursor = get_db().execute("SELECT * FROM user WHERE id=?", (user_id, ))
     results = cursor.fetchall()
     cursor.close()
     return output_formatter(results)
@@ -59,4 +59,5 @@ def select(user_id):
 def deactivate_user(user_id):
     cursor = get_db()
     cursor.execute("UPDATE user SET active=0 WHERE id =?", (user_id, ))
+    cursor.commit()
     cursor.close()

@@ -1,7 +1,6 @@
 from flask import Flask, request
 from app.database import (
     scan, insert, deactivate_user, select
-
 )
 
 app = Flask(__name__)
@@ -27,8 +26,8 @@ def create_user():
     user_data = request.json
     out["new_id"] = insert(
         user_data.get("first_name"),
-        user_data.get("last"),
-        user_data.get("hobbies"),
+        user_data.get("last_name"),
+        user_data.get("hobbies")
     )
     return out, 201
 
