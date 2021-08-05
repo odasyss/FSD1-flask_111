@@ -28,3 +28,5 @@ def test_user_deactivate():
 if __name__ == "__main__":
     test_user_creation()
     test_user_deactivate()
+
+# only for testing
